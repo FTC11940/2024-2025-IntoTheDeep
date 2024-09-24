@@ -1,27 +1,43 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
-
 public class MecanumDrivetrain {
     // Motor declarations
     private DcMotor frontLeft, frontRight, backLeft, backRight;
-
     private IMU imu;
 
     // Constructor
-    public MecanumDrivetrain() {}
+    public MecanumDrivetrain() {
+        // Constructor should remain simple
+    }
 
-    // Initialize motors
+    // Initialize motors and IMU
     public void init(HardwareMap hardwareMap) {
+        // Initialize IMU
+        imu = hardwareMap.get(IMU.class, "imu");
+
+        // Initialize IMU parameters with orientation information
+        IMU.Parameters parameters = new IMU.Parameters(
+                new RevHubOrientationOnRobot(
+                        RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                        RevHubOrientationOnRobot.UsbFacingDirection.RIGHT
+                )
+        );
+
+        // Initialize IMU with these parameters
+        imu.initialize(parameters);
+
+        // Initialize motors
         frontLeft = hardwareMap.get(DcMotor.class, "front_left");
         frontRight = hardwareMap.get(DcMotor.class, "front_right");
         backLeft = hardwareMap.get(DcMotor.class, "back_left");
         backRight = hardwareMap.get(DcMotor.class, "back_right");
 
-        // Reverse the right side motors
+        // Reverse the right side motors to match hardware orientation
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
     }

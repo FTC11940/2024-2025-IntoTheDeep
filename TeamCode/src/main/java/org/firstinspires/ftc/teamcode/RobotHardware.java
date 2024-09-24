@@ -5,11 +5,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 
 public class RobotHardware {
-    private MecanumDrivetrain drivetrain;
+    private MecanumV2 drivetrain;
     private ArmSubsystem arm;
 
     public RobotHardware() {
-        drivetrain = new MecanumDrivetrain();
+        drivetrain = new MecanumV2();
         arm = new ArmSubsystem();
     }
 
@@ -20,7 +20,7 @@ public class RobotHardware {
 
     }
 
-    public MecanumDrivetrain getDrivetrain() {
+    public MecanumV2 getDrivetrain() {
         return drivetrain;
     }
 
