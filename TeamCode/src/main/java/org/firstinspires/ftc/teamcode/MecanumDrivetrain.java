@@ -2,10 +2,14 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
+
 
 public class MecanumDrivetrain {
     // Motor declarations
     private DcMotor frontLeft, frontRight, backLeft, backRight;
+
+    private IMU imu;
 
     // Constructor
     public MecanumDrivetrain() {}
