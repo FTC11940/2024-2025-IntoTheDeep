@@ -1,22 +1,21 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class MecanumDrivetrain {
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="MecanumTeleOp", group="TeleOp")
+public class MecanumDrive_version2 extends OpMode {
     // Motor declarations
     private DcMotor frontLeft, frontRight, backLeft, backRight;
     private IMU imu;
 
-    // Constructor
-    public MecanumDrivetrain() {
-        // Constructor should remain simple
-    }
-
-    // Initialize motors and IMU
-    public void init(HardwareMap hardwareMap) {
+    // Initialize once OpMode is started
+    @Override
+    public void init() {
         // Initialize IMU
         imu = hardwareMap.get(IMU.class, "imu");
 
@@ -31,6 +30,11 @@ public class MecanumDrivetrain {
         // Initialize IMU with these parameters
         imu.initialize(parameters);
 
+        
+        // IMU is calibrated
+        telemetry.addData("IMU Status", "Calibrated");
+        telemetry.update();
+
         // Initialize motors
         frontLeft = hardwareMap.get(DcMotor.class, "front_left");
         frontRight = hardwareMap.get(DcMotor.class, "front_right");
@@ -40,33 +44,44 @@ public class MecanumDrivetrain {
         // Reverse the right side motors to match hardware orientation
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
+
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
     }
 
-    // Method to set motor powers
-    public void setDrivePowers(double frontLeftPower, double frontRightPower, double backLeftPower, double backRightPower) {
-        frontLeft.setPower(frontLeftPower);
-        frontRight.setPower(frontRightPower);
-        backLeft.setPower(backLeftPower);
-        backRight.setPower(backRightPower);
+    // Main control loop
+    @Override
+    public void loop() {
+        // Example controls
+        double y = -gamepad1.left_stick_y;  // Forward/backward
+        double x = gamepad1.left_stick_x;   // Strafe left/right
+        double turn = gamepad1.right_stick_x;  // Rotation
+
+        // Calculate motor powers
+        double[] powers = calculateMotorPowers(y, x, turn);
+
+        // Set motor powers
+        frontLeft.setPower(powers[0]);
+        frontRight.setPower(powers[1]);
+        backLeft.setPower(powers[2]);
+        backRight.setPower(powers[3]);
+
+        // Display IMU telemetry
+        displayIMUTelemetry(telemetry);
+    }
+
+    // Method to update and display IMU telemetry
+    public void displayIMUTelemetry(Telemetry telemetry) {
     }
 
     // Method to calculate and normalize motor powers for Mecanum drive
     public double[] calculateMotorPowers(double y, double x, double turn) {
-        double frontLeftPower = y + x + turn;
-        double frontRightPower = y - x - turn;
-        double backLeftPower = y - x + turn;
-        double backRightPower = y + x - turn;
+        return null;
+    }
 
-        // Normalize powers so no values exceed 1.0
-        double max = Math.max(Math.abs(frontLeftPower), Math.max(Math.abs(frontRightPower),
-                Math.max(Math.abs(backLeftPower), Math.abs(backRightPower))));
-        if (max > 1.0) {
-            frontLeftPower /= max;
-            frontRightPower /= max;
-            backLeftPower /= max;
-            backRightPower /= max;
-        }
+    public void setDrivePowers(double power, double power1, double power2, double power3) {
+    }
 
-        return new double[]{frontLeftPower, frontRightPower, backLeftPower, backRightPower};
+    public void init(HardwareMap hardwareMap) {
     }
 }

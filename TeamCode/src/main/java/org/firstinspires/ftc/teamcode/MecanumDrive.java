@@ -1,5 +1,10 @@
 package org.firstinspires.ftc.teamcode;
-
+/*
+* Code base from `RoadRunner`
+* https://github.com/acmerobotics/road-runner-quickstart.git
+*
+* It should be used with the `RoadRunner` robot settings on the Driver Station
+* */
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.canvas.Canvas;
@@ -52,6 +57,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Config
+/**
+ * A utility class that converts joystick values into movement and turning commands
+ * for robots with mecanum wheels.
+ *
+ * Mecanum wheels are omnidirectional wheels that allow a robot to move in any direction
+ * without changing its orientation. This is achieved by having rollers on the wheels
+ * that are angled at 45 degrees to the wheel's plane of rotation.
+ */
 public final class MecanumDrive {
     public static class Params {
         // IMU orientation
@@ -91,6 +104,14 @@ public final class MecanumDrive {
         public double headingVelGain = 0.0; // shared with turn
     }
 
+    /*
+    * This line of code declares a static public field named PARAMS of type Params and initializes it with a new Params object.
+    * public: This means the field can be accessed from any other class.
+    * static: This means the field belongs to the class itself, not to any specific instance of the class. There's only one PARAMS object shared by all instances of the class.
+    * Params: This is the data type of the field. It seems like a custom class that likely holds parameters or configurations for something.
+    * PARAMS: This is the name of the field. Using uppercase for static fields is a common convention in Java.
+    * new Params(): This creates a new instance of the Params class and assigns it to the PARAMS field.
+    */
     public static Params PARAMS = new Params();
 
     public final MecanumKinematics kinematics = new MecanumKinematics(
@@ -139,6 +160,8 @@ public final class MecanumDrive {
             imu = lazyImu.get();
 
             // TODO: reverse encoders if needed
+            // Both motors on the left needed to be REVERSE 09-24-24
+            // Changed the motor encoders so they showed positive values, too
                leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
                leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -219,6 +242,7 @@ public final class MecanumDrive {
 
         // TODO: make sure your config has motors with these names (or change them)
         //   see https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/index.html
+        // Activate the `RoadRunner` settings on the Driver Station
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
         rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
@@ -235,6 +259,7 @@ public final class MecanumDrive {
 
         // TODO: make sure your config has an IMU with this name (can be BNO or BHI)
         //   see https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/index.html
+        // FTC 11940 is using IMU BHI
         lazyImu = new LazyImu(hardwareMap, "imu", new RevHubOrientationOnRobot(
                 PARAMS.logoFacingDirection, PARAMS.usbFacingDirection));
 

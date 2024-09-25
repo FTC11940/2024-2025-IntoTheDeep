@@ -1,15 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 
 public class RobotHardware {
-    private MecanumV2 drivetrain;
+    private MecanumDrive_version2 drivetrain;
     private ArmSubsystem arm;
 
     public RobotHardware() {
-        drivetrain = new MecanumV2();
+        drivetrain = new MecanumDrive_version2();
         arm = new ArmSubsystem();
     }
 
@@ -20,7 +19,7 @@ public class RobotHardware {
 
     }
 
-    public MecanumV2 getDrivetrain() {
+    public MecanumDrive_version2 getDrivetrain() {
         return drivetrain;
     }
 
