@@ -1,10 +1,5 @@
 package org.firstinspires.ftc.teamcode;
-/*
-* Code base from `RoadRunner`
-* https://github.com/acmerobotics/road-runner-quickstart.git
-*
-* It should be used with the `RoadRunner` robot settings on the Driver Station
-* */
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.canvas.Canvas;
@@ -57,27 +52,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Config
-/**
- * A utility class that converts joystick values into movement and turning commands
- * for robots with mecanum wheels.
- *
- * Mecanum wheels are omnidirectional wheels that allow a robot to move in any direction
- * without changing its orientation. This is achieved by having rollers on the wheels
- * that are angled at 45 degrees to the wheel's plane of rotation.
- */
+
 public final class MecanumDrive {
     public static class Params {
         // IMU orientation
         // TODO: fill in these values based on
         //   see https://ftc-docs.firstinspires.org/en/latest/programming_resources/imu/imu.html?highlight=imu#physical-hub-mounting
         public RevHubOrientationOnRobot.LogoFacingDirection logoFacingDirection =
-                RevHubOrientationOnRobot.LogoFacingDirection.UP;
+                RevHubOrientationOnRobot.LogoFacingDirection.UP; // Correct for Speedy
         public RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection =
-                RevHubOrientationOnRobot.UsbFacingDirection.RIGHT;
+                RevHubOrientationOnRobot.UsbFacingDirection.RIGHT; // Correct for Speedy
 
         // drive model parameters
-        public double inPerTick = 44.5; // ticks 5529 inches 124 // LAT 5539 inches 123.5 44.9
-        public double lateralInPerTick = 44.9;
+        public double inPerTick = 44.5; // ticks 5529, inches 124
+        public double lateralInPerTick = 44.9; // ticks 5539, inches 123.5 44.9
         public double trackWidthTicks = 1400.2350687195772; // Tested 9/25
 
         // feedforward parameters (in tick units)
@@ -515,3 +503,12 @@ public final class MecanumDrive {
         );
     }
 }
+
+/*
+ * A utility class that converts joystick values into movement and turning commands
+ * for robots with mecanum wheels.
+ *
+ * Mecanum wheels are omnidirectional wheels that allow a robot to move in any direction
+ * without changing its orientation. This is achieved by having rollers on the wheels
+ * that are angled at 45 degrees to the wheel's plane of rotation.
+ */

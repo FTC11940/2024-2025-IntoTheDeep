@@ -7,12 +7,14 @@ package org.firstinspires.ftc.teamcode;
  *
  * */
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+@Disabled
+
 // Mecanum Drive
 @TeleOp(name = "MecanumDrive", group = "TeleOp")
-//@Disabled
 public class DriveOpMode extends OpMode {
     private RobotHardware robot;
 
