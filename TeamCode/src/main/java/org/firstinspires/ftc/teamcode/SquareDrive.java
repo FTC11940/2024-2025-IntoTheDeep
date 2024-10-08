@@ -46,7 +46,7 @@ public class SquareDrive extends LinearOpMode {
                 .waitSeconds(3);
                  */
                 
-                .lineToY(48)
+                .lineToY(480)
                 .waitSeconds(3);
         TrajectoryActionBuilder tab2 = drive.actionBuilder(initialPose)
                 /*
